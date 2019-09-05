@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Product>
+
+<table>
+    <tr>
+        <th>@nameof(Product.Name)</th>
+        <th>@nameof(Product.Category)</th>
+        <th>@nameof(Product.Code)</th>
+        <th>@nameof(Product.Price)</th>
+    </tr>
+    @foreach (var pr in Model)
+    {
+        <tr>
+            <td>@pr.Name</td>
+            <td>@pr.Category</td>
+            <td>@pr.Code</td>
+            <td>@pr.Price</td>
+            <td>
+                <form method="post">
+                    <button type="submit" asp-action="Edit">Изменить</button>
+                    <button type="submit" asp-action="Delete" asp-route-id="@pr.ID">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+
+<a asp-action="Create">Добавить новый товар</a>

@@ -1,0 +1,14 @@
+﻿@model Product
+
+<div asp-validation-summary="All"></div>
+<form asp-action="Create" method="post">
+    <label asp-for="Name"></label>
+    <input asp-for="Name">
+    <label asp-for="Code"></label>
+    <input asp-for="Code">
+    <label asp-for="Category"></label>
+    <input asp-for="Category">
+    <label asp-for="Price"></label>
+    <input asp-for="Price">
+    <button type="submit">Создать</button>
+</form>
