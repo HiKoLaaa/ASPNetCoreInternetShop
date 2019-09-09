@@ -26,6 +26,14 @@ namespace InternetShop.Models.Repository
 
 		public Product GetItem(Guid id) => _context.Products.Where(c => c.ID == id).FirstOrDefault();
 
-		public void UpdateItem(Product item) => _context.Products.Update(item);
+		public void UpdateItem(Product item)
+		{
+			Product newItem = _context.Products.Where(p => p.ID == item.ID).FirstOrDefault();
+			newItem.Name = item.Name;
+			newItem.Price = item.Price;
+			newItem.Code = item.Code;
+			newItem.Category = item.Category;
+			_context.Products.Update(newItem);
+		}
 	}
 }

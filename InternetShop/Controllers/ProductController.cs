@@ -8,7 +8,7 @@ using InternetShop.Models.Repository;
 
 namespace InternetShop.Controllers
 {
-	//[Authorize(Roles = "Admin")]
+	[Authorize]
 	public class ProductController : Controller
 	{
 		private IUnitOfWork _unitOfWork;
@@ -20,12 +20,30 @@ namespace InternetShop.Controllers
 
 		public IActionResult Index() => View(_unitOfWork.Products.GetAllItems());
 
-		public IActionResult Create() => View();
+		public IActionResult Create()
+		{
+			ViewBag.Action = "Добавление продукта";
+			return View();
+		}
+
+		public IActionResult Edit(Guid id)
+		{
+			ViewBag.Action = "Редактирование продукта";
+			return View(nameof(Create), _unitOfWork.Products.GetItem(id));
+		}
 
 		[HttpPost]
 		public IActionResult Create(Product product)
 		{
-			_unitOfWork.Products.AddItem(product);
+			if (_unitOfWork.Products.GetAllItems().Where(p => p.ID == product.ID).FirstOrDefault() == null)
+			{
+				_unitOfWork.Products.AddItem(product);
+			}
+			else
+			{
+				_unitOfWork.Products.UpdateItem(product);
+			}
+
 			_unitOfWork.SaveChanges();
 			return RedirectToAction(nameof(Index));
 		}

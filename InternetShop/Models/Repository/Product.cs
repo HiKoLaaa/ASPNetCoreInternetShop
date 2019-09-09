@@ -12,13 +12,18 @@ namespace InternetShop.Models.Repository
 		public Guid ID { get; set; }
 
 		[Required]
+		[Display(Name = "Код")]
 		// TODO: [RegularExpression()]
 		public string Code { get; set; }
 
+		[Display(Name = "Название")]
 		public string Name { get; set; }
+
+		[Display(Name = "Цена")]
 		public decimal Price { get; set; }
 
 		[StringLength(25)]
+		[Display(Name = "Категория")]
 		public string Category { get; set; }
 
 		public List<OrderProduct> Orders { get; set; }

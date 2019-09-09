@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityUser>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <h1 class="text-primary">Список пользователей</h1>
+    </div>
+    <table class="table table-dark">
+        <tr>
+            <th>Имя</th>
+            <th>Электронная почта</th>
+        </tr>
+        @if (Model.Count() == 0)
+        {
+            <tr class="text-center">
+                <td colspan="2" class="text-uppercase no-items">Пользователей не найдено</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td class="text-right">
+                        <form method="post">
+                            <a class="btn btn-danger" asp-action="Edit" asp-route-id="@user.Id">Изменить</a>
+                            <button class="btn btn-danger" type="submit" asp-action="Delete" asp-route-id="@user.Id">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    <a asp-action="Create" class="btn btn-dark">Добавить нового пользователя</a>
+</div>

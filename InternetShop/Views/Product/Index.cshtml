@@ -1,27 +1,40 @@
 ﻿@model IEnumerable<Product>
 
-<table>
-    <tr>
-        <th>@nameof(Product.Name)</th>
-        <th>@nameof(Product.Category)</th>
-        <th>@nameof(Product.Code)</th>
-        <th>@nameof(Product.Price)</th>
-    </tr>
-    @foreach (var pr in Model)
-    {
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <h1 class="text-primary">Список продуктов</h1>
+    </div>
+    <table class="table table-dark">
         <tr>
-            <td>@pr.Name</td>
-            <td>@pr.Category</td>
-            <td>@pr.Code</td>
-            <td>@pr.Price</td>
-            <td>
-                <form method="post">
-                    <button type="submit" asp-action="Edit">Изменить</button>
-                    <button type="submit" asp-action="Delete" asp-route-id="@pr.ID">Удалить</button>
-                </form>
-            </td>
+            <th>Наименование</th>
+            <th>Категория</th>
+            <th>Код</th>
+            <th>Цена</th>
         </tr>
-    }
-</table>
-
-<a asp-action="Create">Добавить новый товар</a>
+        @if (Model.Count() == 0)
+        {
+            <tr class="text-center">
+                <td colspan="4" class="text-uppercase no-items">Товаров не найдено</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var pr in Model)
+            {
+                <tr>
+                    <td>@pr.Name</td>
+                    <td>@pr.Category</td>
+                    <td>@pr.Code</td>
+                    <td>@pr.Price</td>
+                    <td class="text-right">
+                        <form method="post">
+                            <a class="btn btn-danger" asp-action="Edit" asp-route-id="@pr.ID">Изменить</a>
+                            <button class="btn btn-danger" type="submit" asp-action="Delete" asp-route-id="@pr.ID">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    <a asp-action="Create" class="btn btn-dark">Добавить новый товар</a>
+</div>

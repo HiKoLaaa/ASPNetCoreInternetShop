@@ -2,10 +2,12 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <link asp-href-include="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link asp-href-include="~/css/style.min.css" rel="stylesheet" />
 </head>
 <body>
     <div>
+        @await Component.InvokeAsync("TopBar")
         @RenderBody()
     </div>
 </body>

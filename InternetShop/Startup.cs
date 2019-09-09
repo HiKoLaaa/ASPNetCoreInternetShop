@@ -37,7 +37,12 @@ namespace InternetShop
 				opt.UseSqlServer(_configuration["Data:Databases:IdentityDb"]);
 			});
 
-			services.AddIdentity<IdentityUser, IdentityRole>()
+			services.AddIdentity<IdentityUser, IdentityRole>(opt => {
+				opt.User.RequireUniqueEmail = true;
+				opt.Password.RequiredUniqueChars = 0;
+				opt.Password.RequireNonAlphanumeric = false;
+				opt.Password.RequireUppercase = false;
+			})
 				.AddEntityFrameworkStores<AuthenticationDbContext>()
 				.AddDefaultTokenProviders();
 
@@ -52,7 +57,12 @@ namespace InternetShop
 			app.UseStaticFiles();
 			app.UseSession();
 			app.UseAuthentication();
-			app.UseMvcWithDefaultRoute();
+			app.UseMvc(routes =>
+			{
+				routes.MapRoute(
+					name: "",
+					template: "{controller=Product}/{action=Index}");
+			});
 		}
 	}
 }
