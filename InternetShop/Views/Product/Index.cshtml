@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<Product>
 
 <div class="container-fluid">
-    <div class="row justify-content-center">
-        <h1 class="text-primary">Список продуктов</h1>
-    </div>
+    @await Component.InvokeAsync("Label", new { label = "Список продуктов" })
     <table class="table table-dark">
         <tr>
             <th>Наименование</th>
@@ -30,6 +28,7 @@
                         <form method="post">
                             <a class="btn btn-danger" asp-action="Edit" asp-route-id="@pr.ID">Изменить</a>
                             <button class="btn btn-danger" type="submit" asp-action="Delete" asp-route-id="@pr.ID">Удалить</button>
+                            <button class="btn btn-success" type="submit" asp-action="AddToCart" asp-route-productID="@pr.ID">Добавить в корзину</button>
                         </form>
                     </td>
                 </tr>

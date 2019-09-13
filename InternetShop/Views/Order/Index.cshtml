@@ -1,0 +1,59 @@
+﻿@model OrderViewModel
+
+<div class="container-fluid">
+    @await Component.InvokeAsync("Label", new { label = "Список заказов" })
+    <div class="row m-2 justify-content-center">
+        <div class="col-6 text-center">
+            <form asp-action="Index" method="get">
+                <select class="form-control mb-1" asp-for="Status">
+                    <option value="0">Без фильтра</option>
+                    <option value="Done">Выполнен</option>
+                    <option value="InProgress">В процессе</option>
+                    <option value="New">Новый</option>
+                </select>
+                <button class="btn btn-primary col-6" asp-action="Index" type="submit">Принять</button>
+            </form>
+        </div>
+    </div>
+    <div asp-validation-summary="All" danger-validation="true" numb-col="6"></div>
+    <table class="table table-dark">
+        <tr>
+            <th>Номер заказа</th>
+            <th>Дата заказа</th>
+            <th>Статус</th>
+        </tr>
+        @if (Model.Orders.Count() == 0)
+        {
+            <tr class="text-center">
+                <td colspan="4" class="text-uppercase no-items">Заказов не найдено</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var ord in Model.Orders)
+            {
+                <tr>
+                    <td>@ord.OrderNumber</td>
+                    <td>@ord.OrderDate</td>
+                    @switch (ord.StatusID)
+                    {
+                        case 1:
+                            <td>Выполнен</td>
+                            break;
+                        case 2:
+                            <td>В процессе</td>
+                            break;
+                        case 3:
+                            <td>Новый</td>
+                            break;
+                    }
+                    <td class="text-right">
+                        <form method="post">
+                            <button class="btn btn-danger" type="submit" asp-action="Delete" asp-route-id="@ord.ID" asp-route-status="@Model.Status">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>

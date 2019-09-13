@@ -47,9 +47,9 @@ namespace InternetShop.Controllers
 		{
 			ViewBag.Action = "Редактирование пользователя";
 			IdentityUser user = await _userManager.FindByIdAsync(id.ToString());
-			ModelState.AddModelError(nameof(UserInfo.Password), "Пароль необходимо ввести заново или новый");
+			ModelState.AddModelError(nameof(UserInfoViewModel.Password), "Пароль необходимо ввести заново или новый");
 			return View(nameof(Create),
-				new UserInfo()
+				new UserInfoViewModel()
 				{
 					Email = user.Email,
 					Name = user.UserName
@@ -58,7 +58,7 @@ namespace InternetShop.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Create(UserInfo userInfo)
+		public async Task<IActionResult> Create(UserInfoViewModel userInfo)
 		{
 			IdentityUser newUser = await _userManager.FindByEmailAsync(userInfo.Email);
 			IdentityResult result;

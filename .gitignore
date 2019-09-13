@@ -1,0 +1,6 @@
+.cshtml.g.cs
+*.dtbcache
+*.suo
+*.ide
+InternetShop/obj/Debug/
+InternetShop/bin/Debug/

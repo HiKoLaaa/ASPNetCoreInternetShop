@@ -5,17 +5,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using InternetShop.Models.Repository;
+using InternetShop.Models.DbModels;
+using InternetShop.Models.UnitOfWork;
+using InternetShop.Models.ViewModels;
 
 namespace InternetShop.Controllers
 {
-	[Authorize]
+	//[Authorize]
 	public class ProductController : Controller
 	{
 		private IUnitOfWork _unitOfWork;
+		private SessionCart _cart;
 
-		public ProductController(IUnitOfWork unitOfWork)
+		public ProductController(IUnitOfWork unitOfWork, SessionCart cart)
 		{
 			_unitOfWork = unitOfWork;
+			_cart = cart;
 		}
 
 		public IActionResult Index() => View(_unitOfWork.Products.GetAllItems());
@@ -58,6 +63,13 @@ namespace InternetShop.Controllers
 			}
 
 			_unitOfWork.SaveChanges();
+			return RedirectToAction(nameof(Index));
+		}
+
+		[HttpPost]
+		public IActionResult AddToCart(Guid productID)
+		{
+			_cart.AddItem(_unitOfWork.Products.GetItem(productID), 1);
 			return RedirectToAction(nameof(Index));
 		}
 	}

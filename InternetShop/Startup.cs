@@ -11,6 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
+using InternetShop.Models.DbModels;
+using InternetShop.Models.UnitOfWork;
+using InternetShop.Models.ViewModels;
 
 namespace InternetShop
 {
@@ -26,7 +29,9 @@ namespace InternetShop
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddMvc();
-			services.AddScoped<IUnitOfWork, UnitOfWork>();
+			services.AddSingleton<IUnitOfWork, UnitOfWork>();
+			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+			services.AddScoped<SessionCart>(opt => SessionCart.GetCart(opt));
 			services.AddDbContext<ProductDbContext>(opt =>
 			{
 				opt.UseSqlServer(_configuration["Data:Databases:ProductDb"]);
@@ -38,6 +43,7 @@ namespace InternetShop
 			});
 
 			services.AddIdentity<IdentityUser, IdentityRole>(opt => {
+				// TODO: ужесточить требования к паролю.
 				opt.User.RequireUniqueEmail = true;
 				opt.Password.RequiredUniqueChars = 0;
 				opt.Password.RequireNonAlphanumeric = false;

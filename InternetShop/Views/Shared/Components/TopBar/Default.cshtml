@@ -1,13 +1,19 @@
-﻿@model MainInfo
+﻿@model MainInfoViewModel
 
 <div class="container-fluid bg-dark">
     <div class="row p-2">
         <div>
             <h1 class="text-primary">Интернет-магазин. Добро пожаловать!</h1>
         </div>
-        <div class="ml-auto align-self-center">
+        <div class="ml-auto text-white align-self-center">
+            <span>У Вас @Model.ProductCount товара(ов) в корзине</span>
+            <a class="btn btn-secondary" asp-action="Index" asp-controller="Cart"><i class="fa fa-shopping-cart"></i></a>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a class="btn btn-secondary" asp-action="Index" asp-controller="PersonalAccount"><i class="fa fa-user-circle-o"></i></a>
+            }
             <!--// TODO: подправить это.-->
-            @if(Model.UserName == null)
+            @if (Model.UserName == null)
             {
                 <a class="btn btn-primary" asp-action="Login" asp-controller="Account">Войти</a>
             }

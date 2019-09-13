@@ -1,0 +1,43 @@
+﻿@model CartResultViewModel
+
+<div class="container-fluid">
+    <div asp-validation-summary="All" danger-validation="true" numb-col="6"></div>
+    @await Component.InvokeAsync("Label",  new { label = "Список продуктов" })
+    <table class="table table-dark">
+        <tr>
+            <th>Наименование</th>
+            <th>Цена</th>
+            <th>Количество</th>
+        </tr>
+        @if (Model.CartLines.Count() == 0)
+        {
+            <tr class="text-center">
+                <td colspan="4" class="text-uppercase no-items">Товары отсутствуют в корзине</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var pr in Model.CartLines)
+            {
+                <tr>
+                    <td>@pr.Product.Name</td>
+                    <td>@pr.Product.Price</td>
+                    <td>@pr.Quantity</td>
+                    <td class="text-right">
+                        <form method="post">
+                            <button class="btn btn-success" type="submit" asp-action="RemoveFromCart" asp-route-productID="@pr.Product.ID">Убрать из корзины</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    <div class="row justify-content-end m-1">
+        <h3>Общая сумма: @Model.TotalPrice</h3>
+    </div>
+    <div class="row justify-content-start m-1">
+        <form asp-action="MakeOrder" method="post">
+            <button class="btn btn-dark" type="submit">Оформить заказ</button>
+        </form>
+    </div>
+</div>

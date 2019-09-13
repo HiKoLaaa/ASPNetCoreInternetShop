@@ -1,9 +1,7 @@
-﻿@model UserInfo
+﻿@model UserInfoViewModel
 
 <div class="container-fluid">
-    <div class="row justify-content-center">
-        <h1 class="text-primary">@ViewBag.Action</h1>
-    </div>
+    @await Component.InvokeAsync("Label",  new { label = ViewBag.Action })
     <div class="m-1 p-1">
         <div asp-validation-summary="All" danger-validation="true" numb-col="4"></div>
         <div class="row justify-content-center">

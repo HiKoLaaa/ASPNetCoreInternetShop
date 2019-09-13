@@ -1,12 +1,10 @@
-﻿@model UserInfo
+﻿@model UserInfoViewModel
 
 <div class="container-fluid">
-    <div class="row justify-content-center">
-        <h1 class="text-primary">Вход</h1>
-    </div>
+    @await Component.InvokeAsync("Label",  new { label = "Вход" })
     <div class="row justify-content-center">
         <div class="col-6">
-            <div asp-validation-summary="All"></div>
+            <div asp-validation-summary="All" danger-validation="true" numb-col="6"></div>
             <form asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl" method="post">
                 <div class="form-group">
                     <label asp-for="Email"></label>

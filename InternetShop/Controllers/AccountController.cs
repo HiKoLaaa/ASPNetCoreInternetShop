@@ -31,7 +31,7 @@ namespace InternetShop.Controllers
 		[HttpPost]
 		[AllowAnonymous]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Login(UserInfo info, string returnUrl)
+		public async Task<IActionResult> Login(UserInfoViewModel info, string returnUrl)
 		{
 			if (ModelState.IsValid)
 			{

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InternetShop.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
-    [Migration("20190905174212_Initial")]
-    partial class Initial
+    [Migration("20190912232549_deletenull")]
+    partial class deletenull
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace InternetShop.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("InternetShop.Models.Customer", b =>
+            modelBuilder.Entity("InternetShop.Models.DbModels.Customer", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd();
@@ -42,7 +42,7 @@ namespace InternetShop.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("InternetShop.Models.Order", b =>
+            modelBuilder.Entity("InternetShop.Models.DbModels.Order", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd();
@@ -55,9 +55,9 @@ namespace InternetShop.Migrations
 
                     b.Property<int>("ProductCount");
 
-                    b.Property<DateTime>("ShipmentDate");
+                    b.Property<DateTime?>("ShipmentDate");
 
-                    b.Property<int>("Status");
+                    b.Property<int>("StatusID");
 
                     b.HasKey("ID");
 
@@ -66,7 +66,7 @@ namespace InternetShop.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("InternetShop.Models.OrderProduct", b =>
+            modelBuilder.Entity("InternetShop.Models.DbModels.OrderProduct", b =>
                 {
                     b.Property<Guid>("OrderID");
 
@@ -79,7 +79,7 @@ namespace InternetShop.Migrations
                     b.ToTable("OrderProduct");
                 });
 
-            modelBuilder.Entity("InternetShop.Models.Product", b =>
+            modelBuilder.Entity("InternetShop.Models.DbModels.Product", b =>
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd();
@@ -96,25 +96,25 @@ namespace InternetShop.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Product");
+                    b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("InternetShop.Models.Order", b =>
+            modelBuilder.Entity("InternetShop.Models.DbModels.Order", b =>
                 {
-                    b.HasOne("InternetShop.Models.Customer", "Customer")
+                    b.HasOne("InternetShop.Models.DbModels.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("InternetShop.Models.OrderProduct", b =>
+            modelBuilder.Entity("InternetShop.Models.DbModels.OrderProduct", b =>
                 {
-                    b.HasOne("InternetShop.Models.Order", "Order")
+                    b.HasOne("InternetShop.Models.DbModels.Order", "Order")
                         .WithMany("Products")
                         .HasForeignKey("OrderID")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("InternetShop.Models.Product", "Product")
+                    b.HasOne("InternetShop.Models.DbModels.Product", "Product")
                         .WithMany("Orders")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade);
