@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InternetShop.Models.ViewModels
 {
-	public class UserInfo
+	public class UserInfoViewModel
 	{
 		[Display(Name = "Имя")]
 		public string Name { get; set; }

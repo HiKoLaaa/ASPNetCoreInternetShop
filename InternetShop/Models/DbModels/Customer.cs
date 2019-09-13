@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace InternetShop.Models.Repository
+namespace InternetShop.Models.DbModels
 {
 	public class Customer
 	{

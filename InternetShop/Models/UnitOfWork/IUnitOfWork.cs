@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using InternetShop.Models.DbModels;
+using InternetShop.Models.Repository;
 
-namespace InternetShop.Models.Repository
+namespace InternetShop.Models.UnitOfWork
 {
 	public interface IUnitOfWork
 	{

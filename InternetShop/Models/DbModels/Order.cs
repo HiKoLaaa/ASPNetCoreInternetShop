@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace InternetShop.Models.Repository
+namespace InternetShop.Models.DbModels
 {
 	public class Order
 	{
@@ -16,8 +16,7 @@ namespace InternetShop.Models.Repository
 		[Required]
 		public DateTime OrderDate { get; set; }
 
-		[Required]
-		public DateTime ShipmentDate { get; set; }
+		public DateTime? ShipmentDate { get; set; }
 
 		[Required]
 		public int OrderNumber { get; set; }
@@ -26,7 +25,7 @@ namespace InternetShop.Models.Repository
 		public int ProductCount { get; set; }
 
 		[Required]
-		public string StatusID { get; set; }
+		public int StatusID { get; set; }
 
 		public Customer Customer { get; set; }
 

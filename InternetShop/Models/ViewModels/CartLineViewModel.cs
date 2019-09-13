@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using InternetShop.Models.Repository;
+﻿using InternetShop.Models.DbModels;
 
 namespace InternetShop.Models.ViewModels
 {

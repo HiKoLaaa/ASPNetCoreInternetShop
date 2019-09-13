@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InternetShop.Models.Repository
+namespace InternetShop.Models.DbModels
 {
 	public class OrderProduct
 	{

@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 
 namespace InternetShop.Models.ViewModels
 {
-	public class MainInfo
+	public class CartResultViewModel
 	{
-		public string UserName { get; set; }
+		public IEnumerable<CartLine> CartLines { get; set; }
+
+		public decimal TotalPrice { get; set; }
 	}
 }

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using InternetShop.Models.DbModels;
+using InternetShop.Models.Repository;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
-namespace InternetShop.Models.Repository
+namespace InternetShop.Models.UnitOfWork
 {
 	public class UnitOfWork : IUnitOfWork
 	{
@@ -51,9 +51,12 @@ namespace InternetShop.Models.Repository
 			}
 		}
 
-		public UnitOfWork(ProductDbContext productDbContext)
+		public UnitOfWork(IConfiguration configuration)
 		{
-			_context = productDbContext;
+			var builder = new DbContextOptionsBuilder<ProductDbContext>()
+				.UseSqlServer(configuration["Data:Databases:ProductDb"]);
+
+			_context = new ProductDbContext(builder.Options);
 		}
 
 		public void SaveChanges()

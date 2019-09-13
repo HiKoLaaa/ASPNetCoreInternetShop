@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace InternetShop.Models.Repository
+namespace InternetShop.Models.DbModels
 {
 	public class Product
 	{
@@ -26,6 +27,7 @@ namespace InternetShop.Models.Repository
 		[Display(Name = "Категория")]
 		public string Category { get; set; }
 
+		[JsonIgnore]
 		public List<OrderProduct> Orders { get; set; }
 	}
 }
