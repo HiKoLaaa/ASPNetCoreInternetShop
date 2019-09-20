@@ -16,7 +16,11 @@ namespace InternetShop.Models.Repository
 
 		public void AddItem(Customer item)
 		{
-			item.ID = Guid.NewGuid();
+			if (item.ID == Guid.Empty)
+			{
+				item.ID = Guid.NewGuid();
+			}
+
 			_context.Customers.Add(item);
 		}
 

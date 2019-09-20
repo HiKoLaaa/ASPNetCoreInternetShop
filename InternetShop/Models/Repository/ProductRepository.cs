@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace InternetShop.Models.Repository
 {
@@ -29,12 +28,15 @@ namespace InternetShop.Models.Repository
 
 		public void UpdateItem(Product item)
 		{
-			Product newItem = _context.Products.Where(p => p.ID == item.ID).FirstOrDefault();
-			newItem.Name = item.Name;
-			newItem.Price = item.Price;
-			newItem.Code = item.Code;
-			newItem.Category = item.Category;
-			_context.Products.Update(newItem);
+			// TODO: подправить.
+			Product productToUpdate = _context.Products.Where(p => p.ID == item.ID).FirstOrDefault();
+			productToUpdate.Name = item.Name;
+			productToUpdate.Price = item.Price;
+			productToUpdate.Category = item.Category;
+			productToUpdate.Code = item.Code;
+			productToUpdate.Orders = item.Orders;
+			_context.Products.Update(productToUpdate);
 		}
+		
 	}
 }
