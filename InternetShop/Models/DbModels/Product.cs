@@ -12,9 +12,10 @@ namespace InternetShop.Models.DbModels
 		[Key]
 		public Guid ID { get; set; }
 
-		[Required]
 		[Display(Name = "Код")]
-		// TODO: [RegularExpression()]
+		[RegularExpression(@"\d{2}-\d{4}-[A-Z]{2}\d{2}",
+			ErrorMessage = "Код должен соответстовать шаблону \"XX-XXXX-YYXX\", где X - цифра, а Y - заглавная буква " +
+				"английского алфавита")]
 		public string Code { get; set; }
 
 		[Display(Name = "Название")]
@@ -29,5 +30,10 @@ namespace InternetShop.Models.DbModels
 
 		[JsonIgnore]
 		public List<OrderProduct> Orders { get; set; }
+
+		public Product()
+		{
+			Orders = new List<OrderProduct>();
+		}
 	}
 }

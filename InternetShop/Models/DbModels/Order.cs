@@ -30,5 +30,10 @@ namespace InternetShop.Models.DbModels
 		public Customer Customer { get; set; }
 
 		public List<OrderProduct> Products { get; set; }
+
+		public Order()
+		{
+			Products = new List<OrderProduct>();
+		}
 	}
 }
