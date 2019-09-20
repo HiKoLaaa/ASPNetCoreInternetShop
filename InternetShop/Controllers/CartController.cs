@@ -24,12 +24,17 @@ namespace InternetShop.Controllers
 			_userManager = userManager;
 		}
 
-		public IActionResult Index() =>
-			View(new CartResultViewModel()
+		public IActionResult Index()
+		{
+			decimal priceWithoutDiscont = _cart.ComputeTotalValue();
+			Customer currCust = _unitOfWork.Customers.GetItem(Guid.Parse(_userManager.GetUserId(User)));
+			decimal priceWithDiscout = priceWithoutDiscont - priceWithoutDiscont * (currCust.Discount / 100);
+			return View(new CartResultViewModel()
 			{
 				CartLines = _cart.Lines,
-				TotalPrice = _cart.ComputeTotalValue()
+				TotalPrice = priceWithDiscout
 			});
+		}
 
 		[HttpPost]
 		public IActionResult RemoveFromCart(Guid productID)
@@ -51,19 +56,18 @@ namespace InternetShop.Controllers
 					OrderNumber = _unitOfWork.Orders.GetAllItems().Count() + 1,
 					ProductCount = _cart.Lines.Sum(p => p.Quantity),
 					StatusID = (int)Statuses.New,
+					Products = new List<OrderProduct>()
 				};
 
-				List<OrderProduct> orderProducts = new List<OrderProduct>();
 				foreach (var line in _cart.Lines)
 				{
-					orderProducts.Add(new OrderProduct()
+					order.Products.Add(new OrderProduct()
 					{
 						OrderID = order.ID,
 						ProductID = line.Product.ID
 					});
 				}
 
-				order.Products = orderProducts;
 				_unitOfWork.Orders.AddItem(order);
 				_unitOfWork.SaveChanges();
 				_cart.Clear();

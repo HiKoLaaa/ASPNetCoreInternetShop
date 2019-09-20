@@ -1,6 +1,7 @@
 ﻿using InternetShop.Models.DbModels;
 using InternetShop.Models.UnitOfWork;
 using InternetShop.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace InternetShop.Controllers
 {
+	[Authorize]
 	public class OrderController : Controller
 	{
 		private IUnitOfWork _unitOfWork;
@@ -52,6 +54,20 @@ namespace InternetShop.Controllers
 			}
 
 			return RedirectToAction(nameof(Index));
+		}
+
+		public IActionResult FullInfo(Guid id)
+		{
+			Order myOrder = _unitOfWork.Orders.GetItem(id);
+			decimal priceWithoutDiscont = myOrder.Products.Sum(orPr => orPr.Product.Price);
+			Customer currCust = _unitOfWork.Customers.GetItem(Guid.Parse(_userManager.GetUserId(User)));
+			decimal priceWithDiscout = priceWithoutDiscont - priceWithoutDiscont * (currCust.Discount / 100);
+			return View(
+				new AloneOrderInfoViewModel()
+				{
+					Order = myOrder,
+					TotalPrice = priceWithoutDiscont
+				});
 		}
 	}
 }
