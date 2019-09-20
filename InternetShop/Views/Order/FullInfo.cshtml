@@ -1,0 +1,36 @@
+﻿@model AloneOrderInfoViewModel
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col">
+            @await Component.InvokeAsync("Label", new { Label = $"Информация о заказе №{Model.Order.OrderNumber}" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div>
+                <h3 class="text-primary">В заказе присутсвуют товары общей стоимостью, с учётом всех скидок: @Model.TotalPrice</h3>
+            </div>
+            <div>
+                <ul class="list-group">
+                    @foreach (var ordPpr in Model.Order.Products)
+                    {
+                        <li class="list-group-item">@ordPpr.Product.Name стоимостью @ordPpr.Product.Price</li>
+                    }
+                </ul>
+            </div>
+            <div class="d-flex justify-content-end">
+                <h3 class="light-gray-bg m-2 p-2 rounded-pill text-primary text-center">
+                    @if (Model.Order.ShipmentDate.HasValue)
+                    {
+                        @:Ожидаемая дата доставки: @Model.Order.ShipmentDate.Value.ToShortDateString()
+                    }
+                    else
+                    {
+                        @:Товар в процессе доставки
+                    }
+                </h3>
+            </div>
+        </div>
+    </div>
+</div>

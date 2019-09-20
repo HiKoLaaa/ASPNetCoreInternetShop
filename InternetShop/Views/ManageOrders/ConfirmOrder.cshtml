@@ -1,0 +1,22 @@
+﻿@model ConfirmOrderViewModel
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            @await Component.InvokeAsync("Label", new { label = "Выбрать дату доставки" })
+        </div>
+    </div>
+    <div asp-validation-summary="All" numb-col="6" danger-validation="true"></div>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <form asp-action="ConfirmOrder" method="post">
+                <input type="hidden" asp-for="@Model.OrderID" />
+                <div class="form-group">
+                    <label asp-for="ShipmentDate">Дата доставки</label>
+                    <input class="form-control" type="date" asp-for="ShipmentDate" value="@DateTime.Now" />
+                </div>
+                <button type="submit" class="btn btn-success">Подтвердить</button>
+            </form>
+        </div>
+    </div>
+</div>
