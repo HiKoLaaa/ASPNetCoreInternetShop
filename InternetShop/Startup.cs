@@ -67,7 +67,12 @@ namespace InternetShop
 			{
 				routes.MapRoute(
 					name: "",
-					template: "{controller=Product}/{action=Index}");
+					template: "MyOrders",
+					defaults: new { Controller = "Order", Action = "Index" });
+
+				routes.MapRoute(
+					name: "",
+					template: "{controller=Shop}/{action=Index}");
 			});
 		}
 	}

@@ -4,3 +4,5 @@
 *.ide
 InternetShop/obj/Debug/
 InternetShop/bin/Debug/
+*.ide-shm
+*.ide-wal
