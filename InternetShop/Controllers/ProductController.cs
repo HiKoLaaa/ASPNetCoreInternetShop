@@ -8,10 +8,11 @@ using InternetShop.Models.Repository;
 using InternetShop.Models.DbModels;
 using InternetShop.Models.UnitOfWork;
 using InternetShop.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace InternetShop.Controllers
 {
-	//[Authorize]
+	[Authorize]
 	public class ProductController : Controller
 	{
 		private IUnitOfWork _unitOfWork;
@@ -40,6 +41,15 @@ namespace InternetShop.Controllers
 		[HttpPost]
 		public IActionResult Create(Product product)
 		{
+			if (!ModelState.IsValid)
+			{
+				if (!(ModelState.ErrorCount == 1 &&
+					ModelState.GetValidationState(nameof(Product.ID)) == ModelValidationState.Invalid))
+				{
+					return View(product);
+				}
+			}
+
 			if (_unitOfWork.Products.GetAllItems().Where(p => p.ID == product.ID).FirstOrDefault() == null)
 			{
 				_unitOfWork.Products.AddItem(product);
@@ -67,10 +77,10 @@ namespace InternetShop.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult AddToCart(Guid productID)
+		public IActionResult AddToCart(Guid productID, string returnUrl)
 		{
 			_cart.AddItem(_unitOfWork.Products.GetItem(productID), 1);
-			return RedirectToAction(nameof(Index));
+			return Redirect(returnUrl ?? "/");
 		}
 	}
 }
