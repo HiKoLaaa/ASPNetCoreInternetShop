@@ -1,4 +1,6 @@
-﻿using System;
+﻿using InternetShop.Infrastructure;
+using InternetShop.Models.DbModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,8 +10,7 @@ namespace InternetShop.Models.ViewModels
 {
 	public class UserInfoViewModel
 	{
-		[Display(Name = "Имя")]
-		public string Name { get; set; }
+		public Customer Customer { get; set; }
 
 		[Required]
 		[Display(Name = "Электронная почта")]
@@ -20,5 +21,8 @@ namespace InternetShop.Models.ViewModels
 		[Display(Name = "Пароль")]
 		[UIHint("password")]
 		public string Password { get; set; }
+
+		[Display(Name = "Администратор")]
+		public bool? IsAdmin { get; set; }
 	}
 }
