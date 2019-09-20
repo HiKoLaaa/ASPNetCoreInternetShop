@@ -1,8 +1,13 @@
 ﻿<div class="container">
     @await Component.InvokeAsync("Label",  new { label = "Меню" })
     <div class="row justify-content-center">
-        <div class="col-4 bg-secondary rounded text-center p-3">
-            <a asp-action="Index" asp-controller="Order" class="btn btn-primary">Список заказов</a>
+        <div class="col-10 col-md-4 rounded text-center p-3 bg-secondary menu-block">
+            <div class="m-1">
+                <a asp-action="Index" asp-controller="Order" class="btn btn-primary">Список заказов</a>
+            </div>
+            <div class="m-1">
+                <a asp-action="Index" asp-controller="ManageOrders" class="btn btn-primary">Управление заказами</a>
+            </div>
         </div>
     </div>
 </div>

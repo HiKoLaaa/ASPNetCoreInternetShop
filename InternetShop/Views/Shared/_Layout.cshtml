@@ -3,15 +3,11 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <link asp-href-include="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link asp-href-include="~/css/style.min.css" rel="stylesheet" />
+    <link asp-href-include="~/css/*.css" rel="stylesheet" />
     <link asp-href-include="~/lib/font-awesome/css/*.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        @await Component.InvokeAsync("TopBar")
-    </header>
-    <main>
-        @RenderBody()
-    </main>
+    @await Component.InvokeAsync("TopBar")
+    @RenderBody()
 </body>
 </html>

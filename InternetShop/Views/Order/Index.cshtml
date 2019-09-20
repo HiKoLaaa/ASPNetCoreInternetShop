@@ -3,7 +3,7 @@
 <div class="container-fluid">
     @await Component.InvokeAsync("Label", new { label = "Список заказов" })
     <div class="row m-2 justify-content-center">
-        <div class="col-6 text-center">
+        <div class="col-12 col-md-6 text-center">
             <form asp-action="Index" method="get">
                 <select class="form-control mb-1" asp-for="Status">
                     <option value="0">Без фильтра</option>
@@ -49,7 +49,8 @@
                     }
                     <td class="text-right">
                         <form method="post">
-                            <button class="btn btn-danger" type="submit" asp-action="Delete" asp-route-id="@ord.ID" asp-route-status="@Model.Status">Удалить</button>
+                            <a class="m-1 btn btn-primary" asp-action="FullInfo" asp-route-id="@ord.ID">Просмотреть заказ</a>
+                            <button class="m-1 btn btn-danger" type="submit" asp-action="Delete" asp-route-id="@ord.ID" asp-route-status="@Model.Status">Удалить</button>
                         </form>
                     </td>
                 </tr>
