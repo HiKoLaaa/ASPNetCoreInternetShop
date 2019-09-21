@@ -20,8 +20,8 @@ namespace InternetShop.Models.DbModels
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<OrderProduct>()
-				.HasKey(pk => new { pk.OrderID, pk.ProductID });
+			modelBuilder.Entity<Order>()
+				.HasAlternateKey(o => o.OrderNumber);
 
 			modelBuilder.Entity<OrderProduct>()
 				.HasOne(op => op.Product)

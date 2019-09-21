@@ -10,5 +10,7 @@ namespace InternetShop.Models.ViewModels
 		public IEnumerable<CartLine> CartLines { get; set; }
 
 		public decimal TotalPrice { get; set; }
+
+		public string ReturnUrl { get; set; }
 	}
 }

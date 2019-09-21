@@ -22,9 +22,6 @@ namespace InternetShop.Models.DbModels
 		public int OrderNumber { get; set; }
 
 		[Required]
-		public int ProductCount { get; set; }
-
-		[Required]
 		public int StatusID { get; set; }
 
 		public Customer Customer { get; set; }

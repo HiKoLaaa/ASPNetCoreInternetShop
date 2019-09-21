@@ -30,6 +30,15 @@ namespace InternetShop.Models.Repository
 
 		public Customer GetItem(Guid id) => _context.Customers.Where(c => c.ID == id).FirstOrDefault();
 
-		public void UpdateItem(Customer item) => _context.Customers.Update(item);
+		public void UpdateItem(Customer item)
+		{
+			Customer newCust = _context.Customers.Where(c => c.ID == item.ID).FirstOrDefault();
+			newCust.Name = item.Name;
+			newCust.Orders = item.Orders;
+			newCust.Address = item.Address;
+			newCust.Code = item.Code;
+			newCust.Discount = item.Discount;
+			_context.Customers.Update(newCust);
+		}
 	}
 }

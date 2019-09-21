@@ -23,6 +23,6 @@ namespace InternetShop.Models.ViewModels
 		public string Password { get; set; }
 
 		[Display(Name = "Администратор")]
-		public bool? IsAdmin { get; set; }
+		public bool IsAdmin { get; set; }
 	}
 }
