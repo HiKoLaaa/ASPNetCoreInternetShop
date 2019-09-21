@@ -24,46 +24,16 @@ namespace InternetShop.Migrations
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AccessFailedCount");
-
                     b.Property<string>("Address")
                         .IsRequired();
 
                     b.Property<string>("Code")
                         .IsRequired();
 
-                    b.Property<string>("ConcurrencyStamp");
-
                     b.Property<int>("Discount");
-
-                    b.Property<string>("Email");
-
-                    b.Property<bool>("EmailConfirmed");
-
-                    b.Property<string>("Id");
-
-                    b.Property<bool>("LockoutEnabled");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd");
 
                     b.Property<string>("Name")
                         .IsRequired();
-
-                    b.Property<string>("NormalizedEmail");
-
-                    b.Property<string>("NormalizedUserName");
-
-                    b.Property<string>("PasswordHash");
-
-                    b.Property<string>("PhoneNumber");
-
-                    b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<string>("SecurityStamp");
-
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserName");
 
                     b.HasKey("ID");
 
@@ -81,13 +51,13 @@ namespace InternetShop.Migrations
 
                     b.Property<int>("OrderNumber");
 
-                    b.Property<int>("ProductCount");
-
                     b.Property<DateTime?>("ShipmentDate");
 
                     b.Property<int>("StatusID");
 
                     b.HasKey("ID");
+
+                    b.HasAlternateKey("OrderNumber");
 
                     b.HasIndex("CustomerID");
 
@@ -96,11 +66,18 @@ namespace InternetShop.Migrations
 
             modelBuilder.Entity("InternetShop.Models.DbModels.OrderProduct", b =>
                 {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd();
+
                     b.Property<Guid>("OrderID");
+
+                    b.Property<int>("ProductCount");
 
                     b.Property<Guid>("ProductID");
 
-                    b.HasKey("OrderID", "ProductID");
+                    b.HasKey("ID");
+
+                    b.HasIndex("OrderID");
 
                     b.HasIndex("ProductID");
 

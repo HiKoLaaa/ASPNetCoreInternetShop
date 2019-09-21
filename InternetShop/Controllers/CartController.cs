@@ -24,7 +24,7 @@ namespace InternetShop.Controllers
 			_userManager = userManager;
 		}
 
-		public IActionResult Index()
+		public IActionResult Index(string returnUrl)
 		{
 			decimal priceWithoutDiscont = _cart.ComputeTotalValue();
 			Customer currCust = _unitOfWork.Customers.GetItem(Guid.Parse(_userManager.GetUserId(User)));
@@ -32,19 +32,20 @@ namespace InternetShop.Controllers
 			return View(new CartResultViewModel()
 			{
 				CartLines = _cart.Lines,
-				TotalPrice = priceWithDiscout
+				TotalPrice = priceWithDiscout,
+				ReturnUrl = returnUrl
 			});
 		}
 
 		[HttpPost]
-		public IActionResult RemoveFromCart(Guid productID)
+		public IActionResult RemoveFromCart(Guid productID, string returnUrl)
 		{
 			_cart.RemoveLine(_unitOfWork.Products.GetItem(productID));
-			return RedirectToAction(nameof(Index));
+			return RedirectToAction(nameof(Index), new { returnUrl });
 		}
 
 		[HttpPost]
-		public IActionResult MakeOrder()
+		public IActionResult MakeOrder(string returnUrl)
 		{
 			if (!(_cart.Lines.Count() == 0))
 			{
@@ -54,7 +55,6 @@ namespace InternetShop.Controllers
 					OrderDate = DateTime.Now,
 					ShipmentDate = null,
 					OrderNumber = _unitOfWork.Orders.GetAllItems().Count() + 1,
-					ProductCount = _cart.Lines.Sum(p => p.Quantity),
 					StatusID = (int)Statuses.New,
 					Products = new List<OrderProduct>()
 				};
@@ -63,8 +63,10 @@ namespace InternetShop.Controllers
 				{
 					order.Products.Add(new OrderProduct()
 					{
+						ID = Guid.NewGuid(),
 						OrderID = order.ID,
-						ProductID = line.Product.ID
+						ProductID = line.Product.ID,
+						ProductCount = _cart.Lines.Sum(p => p.Quantity)
 					});
 				}
 
@@ -73,7 +75,7 @@ namespace InternetShop.Controllers
 				_cart.Clear();
 			}
 
-			return RedirectToAction(nameof(Index));
+			return Redirect(returnUrl ?? "/");
 		}
 	}
 }

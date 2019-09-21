@@ -55,19 +55,19 @@ namespace InternetShop.Controllers
 		{
 			ViewBag.Action = "Редактирование пользователя";
 			IdentityUser user = await _userManager.FindByIdAsync(id.ToString());
-			ModelState.AddModelError(nameof(UserInfoViewModel.Password), "Пароль необходимо ввести заново или новый");
+			bool isAdmin = await _userManager.IsInRoleAsync(user, "Admin");
 			return View(nameof(Create),
 				new UserInfoViewModel()
 				{
 					Email = user.Email,
-					Customer = _unitOfWork.Customers.GetItem(id)
+					Customer = _unitOfWork.Customers.GetItem(id),
+					IsAdmin = isAdmin
 				});
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> Create(UserInfoViewModel userInfo)
 		{
-			// TODO: сделать возможность администраторам добавлять других администраторов.
 			if (!ModelState.IsValid)
 			{
 				if (ModelState.ErrorCount == 1 &&
@@ -91,18 +91,11 @@ namespace InternetShop.Controllers
 
 					return View(userInfo);
 				}
-				result = await _passwordValidator.ValidateAsync(_userManager, newUser, userInfo.Password);
-				if (!result.Succeeded)
-				{
-					ModelState.AddModelError("", "Недопустимый пароль (длина минимум 6 символов, заглавные буквы + цифры");
-					return View(userInfo);
-				}
 
-				newUser.PasswordHash = _passwordHasher.HashPassword(newUser, userInfo.Password);
 				result = await _userManager.UpdateAsync(newUser);
 				if (!result.Succeeded)
 				{
-					ModelState.AddModelError("", "При создании произошла ошибка, повторите попытку");
+					ModelState.AddModelError("", "При обновлении произошла ошибка, повторите попытку");
 					return View(userInfo);
 				}
 

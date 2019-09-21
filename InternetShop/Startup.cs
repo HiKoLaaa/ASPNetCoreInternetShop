@@ -65,9 +65,15 @@ namespace InternetShop
 			app.UseAuthentication();
 			app.UseMvc(routes =>
 			{
+
 				routes.MapRoute(
 					name: "",
-					template: "MyOrders",
+					template: "MyOrders/{ordNumber}",
+					defaults: new { Controller = "Order", Action = "FullInfo" });
+
+				routes.MapRoute(
+					name: "",
+					template: "MyOrders/",
 					defaults: new { Controller = "Order", Action = "Index" });
 
 				routes.MapRoute(

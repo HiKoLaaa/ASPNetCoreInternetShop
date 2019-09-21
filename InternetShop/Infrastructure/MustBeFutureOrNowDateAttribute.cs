@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace InternetShop.Infrastructure
 {
@@ -11,7 +10,7 @@ namespace InternetShop.Infrastructure
 		public IEnumerable<ModelValidationResult> Validate(ModelValidationContext context)
 		{
 			DateTime? dt = context.Model as DateTime?;
-			if (!dt.HasValue || dt.Value < DateTime.Now)
+			if (!dt.HasValue || dt.Value < DateTime.Today)
 			{
 				return new List<ModelValidationResult>()
 				{

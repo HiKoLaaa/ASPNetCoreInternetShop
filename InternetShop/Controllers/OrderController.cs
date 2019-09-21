@@ -56,17 +56,17 @@ namespace InternetShop.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
-		public IActionResult FullInfo(Guid id)
+		public IActionResult FullInfo(int ordNumber)
 		{
-			Order myOrder = _unitOfWork.Orders.GetItem(id);
-			decimal priceWithoutDiscont = myOrder.Products.Sum(orPr => orPr.Product.Price);
+			Order myOrder = _unitOfWork.Orders.GetAllItems().Where(o => o.OrderNumber == ordNumber).FirstOrDefault();
+			decimal priceWithoutDiscont = myOrder.Products.Sum(orPr => orPr.Product.Price * orPr.ProductCount);
 			Customer currCust = _unitOfWork.Customers.GetItem(Guid.Parse(_userManager.GetUserId(User)));
 			decimal priceWithDiscout = priceWithoutDiscont - priceWithoutDiscont * (currCust.Discount / 100);
 			return View(
 				new AloneOrderInfoViewModel()
 				{
 					Order = myOrder,
-					TotalPrice = priceWithoutDiscont
+					TotalPrice = priceWithDiscout
 				});
 		}
 	}
