@@ -5,6 +5,9 @@
             <div class="m-1">
                 <a asp-action="Index" asp-controller="Order" class="btn btn-primary">Список заказов</a>
             </div>
+            <div class="m-1">
+                <a asp-action="ChangePassword" asp-controller="User" class="btn btn-primary">Сменить пароль</a>
+            </div>
             @if (User.IsInRole("Admin"))
             {
                 <div class="m-1">
