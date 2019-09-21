@@ -36,7 +36,15 @@
                     }
                 }
             </table>
-            <a asp-action="Create" class="btn btn-dark">Добавить новый товар</a>
+
+            <div class="row">
+                <div class="col-12 col-md justify-content-center justify-content-md-start d-flex m-1">
+                    <a asp-action="Create" class="btn btn-dark">Добавить новый товар</a>
+                </div>
+                <div class="col-12 col-md justify-content-center justify-content-md-end d-flex m-1">
+                    <a asp-action="Index" asp-controller="PersonalAccount" class="btn btn-primary">Вернуться в личный кабинет</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

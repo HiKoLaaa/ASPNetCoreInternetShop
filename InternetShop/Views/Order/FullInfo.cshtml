@@ -15,7 +15,7 @@
                 <ul class="list-group">
                     @foreach (var ordPpr in Model.Order.Products)
                     {
-                        <li class="list-group-item">@ordPpr.Product.Name стоимостью @ordPpr.Product.Price</li>
+                        <li class="list-group-item">@ordPpr.Product.Name стоимостью @ordPpr.Product.Price в количестве @ordPpr.ProductCount</li>
                     }
                 </ul>
             </div>

@@ -37,12 +37,12 @@
     </div>
     <div class="row m-1">
         <div class="col-12 col-md-2 m-1 d-flex justify-content-center justify-content-md-start">
-            <form asp-action="MakeOrder" method="post">
+            <form asp-action="MakeOrder" asp-route-returnUrl="@Model.ReturnUrl" method="post">
                 <button class="btn btn-dark" type="submit">Оформить заказ</button>
             </form>
         </div>
         <div class="col-12 col-md m-1 d-flex justify-content-center justify-content-md-end">
-            <a href="@Model.ReturnUrl" class="btn btn-primary">Вернуться к покупкам</a>
+            <a href="@Model.ReturnUrl" class="btn btn-primary">Вернуться</a>
         </div>
     </div>
 </div>
