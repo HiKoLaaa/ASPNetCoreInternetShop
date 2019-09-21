@@ -3,33 +3,42 @@
 
 <div class="container-fluid">
     @await Component.InvokeAsync("Label",  new { label = "Список пользователей" })
-    <table class="table table-dark">
-        <tr>
-            <th>Имя</th>
-            <th>Электронная почта</th>
-        </tr>
-        @if (Model.Count() == 0)
-        {
-            <tr class="text-center">
-                <td colspan="2" class="text-uppercase no-items">Пользователей не найдено</td>
+    <div class="row">
+        <table class="table table-dark">
+            <tr>
+                <th>Имя</th>
+                <th>Электронная почта</th>
             </tr>
-        }
-        else
-        {
-            @foreach (var user in Model)
+            @if (Model.Count() == 0)
             {
-                <tr>
-                    <td>@user.UserName</td>
-                    <td>@user.Email</td>
-                    <td class="text-right">
-                        <form method="post">
-                            <a class="btn btn-danger" asp-action="Edit" asp-route-id="@user.Id">Изменить</a>
-                            <button class="btn btn-danger" type="submit" asp-action="Delete" asp-route-id="@user.Id">Удалить</button>
-                        </form>
-                    </td>
+                <tr class="text-center">
+                    <td colspan="2" class="text-uppercase no-items">Пользователей не найдено</td>
                 </tr>
             }
-        }
-    </table>
-    <a asp-action="Create" class="btn btn-dark">Добавить нового пользователя</a>
+            else
+            {
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>@user.Email</td>
+                        <td class="text-right">
+                            <form method="post">
+                                <a class="btn btn-danger" asp-action="Edit" asp-route-id="@user.Id">Изменить</a>
+                                <button class="btn btn-danger" type="submit" asp-action="Delete" asp-route-id="@user.Id">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    <div class="row">
+        <div class="d-flex justify-content-md-start justify-content-center col-12 col-md-3 m-1">
+            <a asp-action="Create" class="btn btn-dark">Добавить нового пользователя</a>
+        </div>
+        <div class="d-flex justify-content-md-end justify-content-center col-12 col-md m-1">
+            <a asp-action="Index" asp-controller="PersonalAccount" class="btn btn-primary">Вернуться в личный кабинет</a>
+        </div>
+    </div>
 </div>

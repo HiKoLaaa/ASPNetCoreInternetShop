@@ -25,7 +25,7 @@
                     <td>@pr.Quantity</td>
                     <td class="text-right">
                         <form method="post">
-                            <button class="btn btn-success" type="submit" asp-action="RemoveFromCart" asp-route-productID="@pr.Product.ID">Убрать из корзины</button>
+                            <button class="btn btn-success" type="submit" asp-action="RemoveFromCart" asp-route-productID="@pr.Product.ID" asp-route-returnUrl="@Model.ReturnUrl">Убрать из корзины</button>
                         </form>
                     </td>
                 </tr>
@@ -35,9 +35,14 @@
     <div class="row justify-content-end m-1">
         <h3>Общая сумма, с учётом всех скидок: @Model.TotalPrice</h3>
     </div>
-    <div class="row justify-content-start m-1">
-        <form asp-action="MakeOrder" method="post">
-            <button class="btn btn-dark" type="submit">Оформить заказ</button>
-        </form>
+    <div class="row m-1">
+        <div class="col-12 col-md-2 m-1 d-flex justify-content-center justify-content-md-start">
+            <form asp-action="MakeOrder" method="post">
+                <button class="btn btn-dark" type="submit">Оформить заказ</button>
+            </form>
+        </div>
+        <div class="col-12 col-md m-1 d-flex justify-content-center justify-content-md-end">
+            <a href="@Model.ReturnUrl" class="btn btn-primary">Вернуться к покупкам</a>
+        </div>
     </div>
 </div>

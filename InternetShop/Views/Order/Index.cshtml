@@ -11,50 +11,59 @@
                     <option value="InProgress">В процессе</option>
                     <option value="New">Новый</option>
                 </select>
-                <button class="btn btn-primary col-6" asp-action="Index" type="submit">Принять</button>
+                <button class="btn btn-primary col-6 m-1" asp-action="Index" type="submit">Принять</button>
             </form>
         </div>
     </div>
     <div asp-validation-summary="All" danger-validation="true" numb-col="6"></div>
-    <table class="table table-dark">
-        <tr>
-            <th>Номер заказа</th>
-            <th>Дата заказа</th>
-            <th>Статус</th>
-        </tr>
-        @if (Model.Orders.Count() == 0)
-        {
-            <tr class="text-center">
-                <td colspan="4" class="text-uppercase no-items">Заказов не найдено</td>
-            </tr>
-        }
-        else
-        {
-            @foreach (var ord in Model.Orders)
-            {
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-dark">
                 <tr>
-                    <td>@ord.OrderNumber</td>
-                    <td>@ord.OrderDate</td>
-                    @switch (ord.StatusID)
-                    {
-                        case 1:
-                            <td>Выполнен</td>
-                            break;
-                        case 2:
-                            <td>В процессе</td>
-                            break;
-                        case 3:
-                            <td>Новый</td>
-                            break;
-                    }
-                    <td class="text-right">
-                        <form method="post">
-                            <a class="m-1 btn btn-primary" asp-action="FullInfo" asp-route-id="@ord.ID">Просмотреть заказ</a>
-                            <button class="m-1 btn btn-danger" type="submit" asp-action="Delete" asp-route-id="@ord.ID" asp-route-status="@Model.Status">Удалить</button>
-                        </form>
-                    </td>
+                    <th>Номер заказа</th>
+                    <th>Дата заказа</th>
+                    <th>Статус</th>
                 </tr>
-            }
-        }
-    </table>
+                @if (Model.Orders.Count() == 0)
+                {
+                    <tr class="text-center">
+                        <td colspan="4" class="text-uppercase no-items">Заказов не найдено</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var ord in Model.Orders)
+                    {
+                        <tr>
+                            <td>@ord.OrderNumber</td>
+                            <td>@ord.OrderDate</td>
+                            @switch (ord.StatusID)
+                            {
+                                case 1:
+                                    <td>Выполнен</td>
+                                    break;
+                                case 2:
+                                    <td>В процессе</td>
+                                    break;
+                                case 3:
+                                    <td>Новый</td>
+                                    break;
+                            }
+                            <td class="text-right">
+                                <form method="post">
+                                    <a class="m-1 btn btn-primary" asp-action="FullInfo" asp-route-ordNumber="@ord.OrderNumber">Просмотреть заказ</a>
+                                    <button class="m-1 btn btn-danger" type="submit" asp-action="Delete" asp-route-id="@ord.ID" asp-route-status="@Model.Status">Удалить</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col justify-content-center justify-content-md-start d-flex">
+            <a asp-action="Index" asp-controller="PersonalAccount" class="btn btn-primary">Вернуться в личный кабинет</a>
+        </div>
+    </div>
 </div>

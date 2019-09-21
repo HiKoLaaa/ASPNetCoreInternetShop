@@ -1,7 +1,7 @@
 ﻿@model UserInfoViewModel
 
 <div class="container-fluid">
-    @await Component.InvokeAsync("Label",  new { label = ViewBag.Action })
+    @await Component.InvokeAsync("Label", new { label = ViewBag.Action })
     <div class="m-1 p-1">
         <div asp-validation-summary="All" danger-validation="true" numb-col="4"></div>
         <div class="row justify-content-center">
@@ -28,9 +28,16 @@
                         <label asp-for="Customer.Discount"></label>
                         <input class="form-control" asp-for="Customer.Discount" placeholder="Введите изначальную скидку">
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Password"></label>
-                        <input class="form-control" asp-for="Password" placeholder="Введите пароль">
+                    @if (ViewBag.Action != "Редактирование пользователя")
+                    {
+                        <div class="form-group">
+                            <label asp-for="Password"></label>
+                            <input class="form-control" asp-for="Password" placeholder="Введите пароль">
+                        </div>
+                    }
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" asp-for="IsAdmin">
+                        <label class="form-check-label" asp-for="IsAdmin">Администратор</label>
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>

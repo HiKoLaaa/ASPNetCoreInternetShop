@@ -10,19 +10,15 @@
                 <span>У Вас @Model.ProductCount товара(ов) в корзине</span>
             </div>
             <div class="col-12 d-flex justify-content-end">
-                <a class="btn btn-secondary mr-1" asp-action="Index" asp-controller="Cart"><i class="fa fa-shopping-cart"></i></a>
+                <a class="btn btn-secondary mr-1" asp-action="Index" asp-controller="Cart" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()"><i class="fa fa-shopping-cart"></i></a>
                 @if (User.Identity.IsAuthenticated)
                 {
                     <a class="btn btn-secondary mr-1" asp-action="Index" asp-controller="PersonalAccount"><i class="fa fa-user-circle-o"></i></a>
-                }
-                <!--// TODO: подправить это.-->
-                @if (Model.UserName == null)
-                {
-                    <a class="btn btn-primary" asp-action="Login" asp-controller="Account">Войти</a>
+                    <a class="btn btn-primary" asp-action="Logout" asp-controller="Account">Выйти</a>
                 }
                 else
                 {
-                    <a class="btn btn-primary" asp-action="Logout" asp-controller="Account">Выйти</a>
+                    <a class="btn btn-primary" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()" asp-action="Login" asp-controller="Account">Войти</a>
                 }
             </div>
         </div>

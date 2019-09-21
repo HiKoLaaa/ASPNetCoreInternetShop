@@ -3,7 +3,7 @@
 }
 
 .menu-block {
-    height: 150px;
+    min-height: 150px;
 }
 
 .light-gray-bg {
