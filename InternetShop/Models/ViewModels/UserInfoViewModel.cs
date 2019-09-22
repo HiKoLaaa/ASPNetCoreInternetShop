@@ -1,10 +1,5 @@
-﻿using InternetShop.Infrastructure;
-using InternetShop.Models.DbModels;
-using System;
-using System.Collections.Generic;
+﻿using InternetShop.Models.DbModels;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace InternetShop.Models.ViewModels
 {

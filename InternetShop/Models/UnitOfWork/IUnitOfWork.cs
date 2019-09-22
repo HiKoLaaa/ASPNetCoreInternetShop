@@ -8,7 +8,6 @@ namespace InternetShop.Models.UnitOfWork
 		IRepository<Customer> Customers { get; }
 		IRepository<Order> Orders { get; }
 		IRepository<Product> Products { get; }
-
 		void SaveChanges();
 	}
 }

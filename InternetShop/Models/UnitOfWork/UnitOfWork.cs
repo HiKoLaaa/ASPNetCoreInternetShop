@@ -8,8 +8,8 @@ namespace InternetShop.Models.UnitOfWork
 	public class UnitOfWork : IUnitOfWork
 	{
 		private ProductDbContext _context;
-
 		private IRepository<Customer> _customers;
+
 		public IRepository<Customer> Customers
 		{
 			get

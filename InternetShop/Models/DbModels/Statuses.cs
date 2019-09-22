@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace InternetShop.Models.DbModels
+﻿namespace InternetShop.Models.DbModels
 {
 	public enum Statuses
 	{

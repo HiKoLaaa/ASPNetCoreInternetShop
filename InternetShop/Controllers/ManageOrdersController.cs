@@ -28,11 +28,14 @@ namespace InternetShop.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
-		public IActionResult ConfirmOrder(Guid id) => View(
-			new ConfirmOrderViewModel()
-			{
-				OrderID = id
-			});
+		public IActionResult ConfirmOrder(Guid id)
+		{
+			return View(
+				new ConfirmOrderViewModel()
+				{
+					OrderID = id
+				});
+		}
 
 		[HttpPost]
 		public IActionResult ConfirmOrder(ConfirmOrderViewModel confOrdVM)

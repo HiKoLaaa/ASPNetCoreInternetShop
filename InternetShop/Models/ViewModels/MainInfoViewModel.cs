@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace InternetShop.Models.ViewModels
+﻿namespace InternetShop.Models.ViewModels
 {
 	public class MainInfoViewModel
 	{

@@ -1,14 +1,10 @@
 ﻿using InternetShop.Models.DbModels;
-using InternetShop.Models.Repository;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace InternetShop.Models.ViewModels
 {
@@ -45,7 +41,6 @@ namespace InternetShop.Models.ViewModels
 
 			SetCart(this);
 		}
-
 
 		public void RemoveLine(Product product)
 		{

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using InternetShop.Models.Repository;
 using InternetShop.Models.DbModels;
 using InternetShop.Models.UnitOfWork;
 using InternetShop.Models.ViewModels;
