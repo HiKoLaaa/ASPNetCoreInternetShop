@@ -2,7 +2,7 @@
 *.dtbcache
 *.suo
 *.ide
-InternetShop/obj/Debug/
+InternetShop/obj/
 InternetShop/bin/Debug/
 InternetShop/.vs/
 *.ide-shm
