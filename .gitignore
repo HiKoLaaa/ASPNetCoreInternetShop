@@ -4,5 +4,8 @@
 *.ide
 InternetShop/obj/Debug/
 InternetShop/bin/Debug/
+InternetShop/.vs/
 *.ide-shm
 *.ide-wal
+*.runtimeconfig.json
+*.runtimeconfig.dev.json
