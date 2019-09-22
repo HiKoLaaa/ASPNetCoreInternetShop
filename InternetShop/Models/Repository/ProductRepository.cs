@@ -16,7 +16,11 @@ namespace InternetShop.Models.Repository
 
 		public void AddItem(Product item)
 		{
-			item.ID = Guid.NewGuid();
+			if (item.ID == Guid.Empty)
+			{
+				item.ID = Guid.NewGuid();
+			}
+
 			_context.Products.Add(item);
 		}
 
@@ -37,6 +41,5 @@ namespace InternetShop.Models.Repository
 			productToUpdate.Orders = item.Orders;
 			_context.Products.Update(productToUpdate);
 		}
-		
 	}
 }

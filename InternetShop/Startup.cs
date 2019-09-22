@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using InternetShop.Models.Repository;
-using InternetShop.Models.Identity;
+﻿using InternetShop.Models.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -43,11 +38,9 @@ namespace InternetShop
 			});
 
 			services.AddIdentity<IdentityUser, IdentityRole>(opt => {
-				// TODO: ужесточить требования к паролю.
 				opt.User.RequireUniqueEmail = true;
 				opt.Password.RequiredUniqueChars = 0;
 				opt.Password.RequireNonAlphanumeric = false;
-				opt.Password.RequireUppercase = false;
 			})
 				.AddEntityFrameworkStores<AuthenticationDbContext>()
 				.AddDefaultTokenProviders();
