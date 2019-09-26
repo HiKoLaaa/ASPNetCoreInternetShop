@@ -16,8 +16,6 @@ namespace InternetShop.Controllers
 		private UserManager<IdentityUser> _userManager;
 		private RoleManager<IdentityRole> _roleManager;
 		private IUnitOfWork _unitOfWork;
-		private IPasswordValidator<IdentityUser> _passwordValidator;
-		private IPasswordHasher<IdentityUser> _passwordHasher;
 		private IUserValidator<IdentityUser> _userValidator;
 
 		public UserController(UserManager<IdentityUser> userManager,
@@ -27,8 +25,6 @@ namespace InternetShop.Controllers
 			IUnitOfWork unitOfWork,
 			RoleManager<IdentityRole> roleManager)
 		{
-			_passwordValidator = passwordValidator;
-			_passwordHasher = passwordHasher;
 			_userValidator = userValidator;
 			_userManager = userManager;
 			_unitOfWork = unitOfWork;
@@ -42,7 +38,15 @@ namespace InternetShop.Controllers
 		{
 			IdentityUser user = await _userManager.FindByIdAsync(id.ToString());
 			IdentityResult result = await _userManager.DeleteAsync(user);
-			return RedirectToAction(nameof(AllUsers));
+			if (result.Succeeded)
+			{
+				return RedirectToAction(nameof(AllUsers));
+			}
+			else
+			{
+				ModelState.AddModelError("", "Произошла ошибка удаления, повторите попытку");
+				return View(nameof(AllUsers));
+			}
 		}
 
 		public IActionResult Create()
@@ -70,8 +74,8 @@ namespace InternetShop.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				if (ModelState.ErrorCount == 1 &&
-					ModelState.GetValidationState(nameof(Customer.ID)) == ModelValidationState.Invalid)
+				if (!(ModelState.ErrorCount == 1 &&
+					ModelState.GetValidationState(nameof(Customer.ID)) == ModelValidationState.Invalid))
 				{
 					return View(userInfo);
 				}
@@ -128,54 +132,6 @@ namespace InternetShop.Controllers
 
 			_unitOfWork.SaveChanges();
 			return RedirectToAction(nameof(AllUsers));
-		}
-
-		public IActionResult ChangePassword() => View();
-
-		[HttpPost]
-		public async Task<IActionResult> ChangePassword(PasswordChangeViewModel pcVM)
-		{
-			if (!ModelState.IsValid)
-			{
-				return View(pcVM);
-			}
-
-			IdentityUser currUser = await _userManager.GetUserAsync(User);
-			bool truePassword = await _userManager.CheckPasswordAsync(currUser, pcVM.OldPassword);
-			if (!truePassword)
-			{
-				ModelState.AddModelError("", "Неправильный старый пароль");
-				return View(pcVM);
-			}
-
-			IdentityResult result = await _passwordValidator.ValidateAsync(_userManager, currUser, pcVM.NewPassword);
-			if (!result.Succeeded)
-			{
-				ModelState.AddModelError("", "Новый пароль не соответствует требованиям");
-				return View(pcVM);
-			}
-
-			if (pcVM.NewPassword != pcVM.RepeatNewPassword)
-			{
-				ModelState.AddModelError("", "Пароли не совпадают");
-				return View(pcVM);
-			}
-
-			result = await _userManager.ChangePasswordAsync(currUser, pcVM.OldPassword, pcVM.NewPassword);
-			if (!result.Succeeded)
-			{
-				ModelState.AddModelError("", "Произошла ошибка, повторите попытку");
-				return View(pcVM);
-			}
-
-			if (ModelState.IsValid)
-			{
-				return RedirectToAction("Index", "PersonalAccount");
-			}
-			else
-			{
-				return View(pcVM);
-			}
 		}
 	}
 }
