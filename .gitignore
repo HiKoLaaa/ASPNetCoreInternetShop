@@ -9,3 +9,7 @@ InternetShop/.vs/
 *.ide-wal
 *.runtimeconfig.json
 *.runtimeconfig.dev.json
+InternetShop.Tests/bin/
+InternetShop.Tests/obj/Debug/
+InternetShop.Tests/obj/
+InternetShop/InternetShop.sln
