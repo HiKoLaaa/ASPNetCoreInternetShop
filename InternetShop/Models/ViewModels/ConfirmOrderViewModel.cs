@@ -1,4 +1,4 @@
-﻿using InternetShop.Infrastructure;
+﻿using InternetShop.Infrastructure.Attributes;
 using System;
 
 namespace InternetShop.Models.ViewModels

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace InternetShop.Infrastructure
+namespace InternetShop.Infrastructure.Extensions
 {
 	public static class UrlExtensions
 	{

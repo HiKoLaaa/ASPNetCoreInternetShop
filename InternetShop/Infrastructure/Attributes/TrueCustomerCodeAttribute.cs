@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace InternetShop.Infrastructure
+namespace InternetShop.Infrastructure.Attributes
 {
 	public class TrueCustomerCodeAttribute : Attribute, IModelValidator
 	{
