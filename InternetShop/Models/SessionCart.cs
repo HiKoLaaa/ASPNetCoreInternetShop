@@ -51,10 +51,16 @@ namespace InternetShop.Models.ViewModels
 		public decimal ComputeTotalValue() =>
 			_lineCollection.Sum(e => e.Product.Price * e.Quantity);
 
+		public decimal ComputeDiscoutValue(int discount)
+		{
+			decimal priceWithoutDiscont = ComputeTotalValue();
+			return priceWithoutDiscont - priceWithoutDiscont * ((decimal)discount / 100);
+		}
+
 		public void Clear()
 		{
 			_lineCollection.Clear();
-			Session.Remove("Cart");
+			Session?.Remove("Cart");
 		}
 
 		public IEnumerable<CartLine> Lines => _lineCollection;
@@ -72,6 +78,6 @@ namespace InternetShop.Models.ViewModels
 		}
 
 		public static void SetCart(SessionCart cart) =>
-			cart.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+			cart.Session?.SetString("Cart", JsonConvert.SerializeObject(cart));
 	}
 }

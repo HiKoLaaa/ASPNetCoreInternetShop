@@ -17,7 +17,7 @@ namespace InternetShop.Components
 		{
 			return View(new MainInfoViewModel()
 			{
-				UserName = User.Identity.Name,
+				UserName = User?.Identity.Name,
 				ProductCount = _cart.Lines.Sum(line => line.Quantity)
 			});
 		}

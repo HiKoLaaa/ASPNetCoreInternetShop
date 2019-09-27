@@ -80,16 +80,16 @@ namespace InternetShop.Controllers
 				return View(pcVM);
 			}
 
+			if (pcVM.NewPassword != pcVM.RepeatNewPassword)
+			{
+				ModelState.AddModelError("", "Пароли не совпадают");
+				return View(pcVM);
+			}
+
 			IdentityResult result = await _passwordValidator.ValidateAsync(_userManager, currUser, pcVM.NewPassword);
 			if (!result.Succeeded)
 			{
 				ModelState.AddModelError("", "Новый пароль не соответствует требованиям");
-				return View(pcVM);
-			}
-
-			if (pcVM.NewPassword != pcVM.RepeatNewPassword)
-			{
-				ModelState.AddModelError("", "Пароли не совпадают");
 				return View(pcVM);
 			}
 
@@ -100,14 +100,7 @@ namespace InternetShop.Controllers
 				return View(pcVM);
 			}
 
-			if (ModelState.IsValid)
-			{
-				return RedirectToAction("Index", "PersonalAccount");
-			}
-			else
-			{
-				return View(pcVM);
-			}
+			return RedirectToAction("Index", "PersonalAccount");
 		}
 	}
 }

@@ -26,9 +26,8 @@ namespace InternetShop.Controllers
 
 		public IActionResult Index(string returnUrl)
 		{
-			decimal priceWithoutDiscont = _cart.ComputeTotalValue();
 			Customer currCust = _unitOfWork.Customers.GetItem(Guid.Parse(_userManager.GetUserId(User)));
-			decimal priceWithDiscout = priceWithoutDiscont - priceWithoutDiscont * (currCust.Discount / 100);
+			decimal priceWithDiscout = _cart.ComputeDiscoutValue(currCust.Discount);
 			return View(new CartResultViewModel()
 			{
 				CartLines = _cart.Lines,

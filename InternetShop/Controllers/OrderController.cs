@@ -40,9 +40,7 @@ namespace InternetShop.Controllers
 				ModelState.AddModelError("", $"Заказ №{order.OrderNumber} уже выполняется/выполнен, удаление невозможно");
 				return View(nameof(Index), new OrderViewModel()
 				{
-					Orders = _unitOfWork.Orders.GetAllItems()
-						.Where(o => o.CustomerID == Guid.Parse(_userManager.GetUserId(User)) &&
-							(status == 0 ? true : o.StatusID == (int)status))
+					Status = status
 				});
 			}
 			else
@@ -59,7 +57,7 @@ namespace InternetShop.Controllers
 			Order myOrder = _unitOfWork.Orders.GetAllItems().Where(o => o.OrderNumber == ordNumber).FirstOrDefault();
 			decimal priceWithoutDiscont = myOrder.Products.Sum(orPr => orPr.Product.Price * orPr.ProductCount);
 			Customer currCust = _unitOfWork.Customers.GetItem(Guid.Parse(_userManager.GetUserId(User)));
-			decimal priceWithDiscout = priceWithoutDiscont - priceWithoutDiscont * (currCust.Discount / 100);
+			decimal priceWithDiscout = priceWithoutDiscont - priceWithoutDiscont * ((decimal)currCust.Discount / 100);
 			return View(
 				new AloneOrderInfoViewModel()
 				{
