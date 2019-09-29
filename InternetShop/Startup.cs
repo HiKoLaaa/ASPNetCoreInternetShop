@@ -30,7 +30,7 @@ namespace InternetShop
 			services.AddDbContext<ProductDbContext>(opt =>
 			{
 				opt.UseSqlServer(_configuration["Data:Databases:ProductDb"]);
-			});
+			}, ServiceLifetime.Singleton);
 
 			services.AddDbContext<AuthenticationDbContext>(opt =>
 			{

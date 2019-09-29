@@ -1,7 +1,5 @@
 ﻿using InternetShop.Models.DbModels;
 using InternetShop.Models.Repository;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace InternetShop.Models.UnitOfWork
 {
@@ -51,12 +49,9 @@ namespace InternetShop.Models.UnitOfWork
 			}
 		}
 
-		public UnitOfWork(IConfiguration configuration)
+		public UnitOfWork(ProductDbContext productDbContext)
 		{
-			var builder = new DbContextOptionsBuilder<ProductDbContext>()
-				.UseSqlServer(configuration["Data:Databases:ProductDb"]);
-
-			_context = new ProductDbContext(builder.Options);
+			_context = productDbContext;
 		}
 
 		public void SaveChanges()
