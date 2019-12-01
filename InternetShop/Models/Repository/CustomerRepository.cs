@@ -38,7 +38,6 @@ namespace InternetShop.Models.Repository
 			newCust.Address = item.Address;
 			newCust.Code = item.Code;
 			newCust.Discount = item.Discount;
-			_context.Customers.Update(newCust);
 		}
 	}
 }
